@@ -1,0 +1,28 @@
+{
+  "name": "Starton Discord Bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/client.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/client.js",
+    "dev": "ts-node src/client.ts"
+  },
+  "author": "Cedric Cervantes <cedric@starton.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.4.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@discordx/utilities": "^1.2.2",
+    "axios": "^0.21.4",
+    "discord.js": "^13.1.0",
+    "discordx": "^6.0.5",
+    "dotenv": "^10.0.0",
+    "moment": "^2.29.1",
+    "quick.db": "^7.1.3",
+    "reflect-metadata": "^0.1.13"
+  }
+}

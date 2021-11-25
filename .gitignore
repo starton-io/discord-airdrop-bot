@@ -1,0 +1,7 @@
+build
+node_modules
+yarn.lock
+json.sqlite
+.env
+.idea
+.DS_Store
