@@ -53,6 +53,11 @@ yarn dev #(or npm run dev)
 yarn build && yarn start #(or npm run build && npm start)
 ```
 
+## Extending the bot
+This bot use the amazing https://github.com/oceanroleplay/discord.ts package.
+
+You can find the full documentation on their website: https://discord-ts.js.org/
+
 ## Authors
 
 - [@cervantescedric - CTO @starton.io](https://linkedin.com/in/cedriccervantes/)
