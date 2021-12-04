@@ -8,10 +8,12 @@ People need to go to a specific channel and write `/airdrop <their address>` and
 ## Discord
 You need to have a Discord Developper Account.
 You can apply here: [discord developer portal](https://discord.com/developers/)
+You can find more informations here: https://discordjs.guide/preparations/setting-up-a-bot-application.html
 
 When you have your credentials you need to set them in a `.env` file
 
 - `BOT_TOKEN=`
+- `GUILD_ID=`
 
 
 You also need to set the **channel id** related to your contest.
