@@ -5,7 +5,7 @@ import moment from "moment"
 import db from 'quick.db'
 
 const starton = axios.create({
-    baseURL: "https://api-connect.starton.io/v1",
+    baseURL: "https://api.starton.io/v2",
     headers: {
         "x-api-key": process.env.STARTON_API_KEY,
     },
@@ -41,7 +41,7 @@ abstract class Airdrop {
 					await db.set(interaction.user.id, { date: Date.now() })
 					const rand = Math.random() * 100
 					if (rand >= 90) {
-						await starton.post(`/smart-contract/${process.env.STARTON_SMART_CONTRACT_ID}/interact`, {
+						await starton.post(`/smart-contract/${process.env.STARTON_SMART_CONTRACT_NETWORK}/${process.env.STARTON_SMART_CONTRACT_ADDRESS}/call`, {
 							functionName: 'mint',
 							params: [
 								address,

@@ -3,7 +3,7 @@ import { CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashChoice, SlashOption } from "discordx";
 
 const starton = axios.create({
-    baseURL: "https://api-connect.starton.io/v1",
+    baseURL: "https://api.starton.io/v2",
     headers: {
         "x-api-key": process.env.STARTON_API_KEY,
     },
@@ -23,9 +23,10 @@ abstract class Deploy {
 		@SlashOption("supply", { required: true})
 		supply: string,
 
-		@SlashChoice("Ethereum Ropsten", "ETHEREUM_ROPSTEN")
-		@SlashChoice("Avalanche Fuji", "AVALANCHE_FUJI")
-		@SlashChoice("Binance Testnet", "BINANCE_TESTNET")
+		@SlashChoice("Ethereum Ropsten", "ethereum-ropsten")
+		@SlashChoice("Avalanche Fuji", "avalanche-fuji")
+		@SlashChoice("Binance Testnet", "binance-testnet")
+		@SlashChoice("Polygon mumbai", "polygon-mumbai")
 		@SlashOption("network", { description: "Which network? (testnet only)", required: true })
 		network: string,
 
@@ -33,7 +34,7 @@ abstract class Deploy {
 	) {
 		await interaction.deferReply();
 		starton.post( '/smart-contract/from-template', {
-			"networkId": network,
+			"network": network,
 			"name": name,
 			"templateId": 'sct_82bde80651bd40cca12f044cb80821bc',
 			"params": [
