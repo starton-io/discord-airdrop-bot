@@ -1,46 +1,48 @@
-import "reflect-metadata";
-import path from "path";
-import { Intents, Interaction, Message } from "discord.js";
-import { Client } from "discordx";
-import * as dotenv from "dotenv";
+import 'reflect-metadata'
+import path from 'path'
+import { Intents, Interaction, Message } from 'discord.js'
+import { Client } from 'discordx'
+import * as dotenv from 'dotenv'
+import { configService } from './config/env.config'
 
-dotenv.config();
+// Initialisation
+//--------------------------------------------------------------------------
+dotenv.config()
+configService.start()
 
+// Client creation
+//--------------------------------------------------------------------------
 const client = new Client({
-  prefix: "!",
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_VOICE_STATES,
-  ],
-  classes: [
-    path.join(__dirname, "commands", "**/*.{ts,js}"),
-    path.join(__dirname, "events", "**/*.{ts,js}"),
-  ],
-  // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-  botGuilds: [
-    process.env.GUILD_ID
-  ],
-  silent: true,
-});
+	prefix: '!',
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MESSAGES,
+		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+		Intents.FLAGS.GUILD_VOICE_STATES,
+	],
+	classes: [path.join(__dirname, 'commands', '**/*.{ts,js}'), path.join(__dirname, 'events', '**/*.{ts,js}')],
+	botGuilds: [configService.get('GUILD_ID')],
+	silent: true,
+})
 
-client.once("ready", async () => {
-  await client.initApplicationCommands({
-    guild: { log: true },
-    global: { log: true },
-  });
-  await client.initApplicationPermissions();
+// Events
+//--------------------------------------------------------------------------
+client.once('ready', async () => {
+	await client.initApplicationCommands({
+		guild: { log: true },
+		global: { log: true },
+	})
+	await client.initApplicationPermissions()
+	console.log('Bot is ready!')
+})
 
-  console.log("Bot started");
-});
+client.on('interactionCreate', (interaction: Interaction) => {
+	void client.executeInteraction(interaction)
+})
 
-client.on("interactionCreate", (interaction: Interaction) => {
-  client.executeInteraction(interaction);
-});
+client.on('messageCreate', (message: Message) => {
+	void client.executeCommand(message)
+	console.log(message)
+})
 
-client.on("messageCreate", (message: Message) => {
-  client.executeCommand(message);
-});
-
-client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
+void client.login(process.env.BOT_TOKEN as string)
