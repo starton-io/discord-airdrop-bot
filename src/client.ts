@@ -42,7 +42,6 @@ client.on('interactionCreate', (interaction: Interaction) => {
 
 client.on('messageCreate', (message: Message) => {
 	void client.executeCommand(message)
-	console.log(message)
 })
 
 void client.login(process.env.BOT_TOKEN as string)

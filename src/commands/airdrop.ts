@@ -1,7 +1,8 @@
 import { CommandInteraction } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import moment from 'moment'
 import db from 'quick.db'
+import axios from 'axios'
+import moment from 'moment'
 import { configService } from '../config/env.config'
 import { StartonApi } from '../config/api.config'
 
@@ -20,7 +21,7 @@ interface User {
 	date: number
 }
 
-const channelId = process.env.CHANNEL_ID
+const channelId = configService.get('CHANNEL_ID')
 
 /*
 |--------------------------------------------------------------------------
@@ -98,15 +99,18 @@ export abstract class Airdrop {
 				)}/call`,
 				{
 					functionName: 'mint',
+					signerWallet: configService.get('STARTON_WALLET'),
 					params: [address, '3000000000000000000000'],
 				},
 			)
 			await interaction.editReply(
-				`Congratulations <@${interaction.user.id}> you WIN :rocket: :partying_face: :gift: https://cchain.explorer.avax.network/tx/${tx.data.transactionHash}\n\nThis transaction was powered by https://starton.io`,
+				`Congratulations <@${interaction.user.id}> you WIN :rocket: :partying_face: :gift: ${
+					configService.get('NETWORK_EXPLORER_TX_ROUTE') + tx.data.transactionHash
+				}\n\nThis transaction was powered by https://starton.io`,
 			)
 			await db.set(interaction.user.id, { hash: tx.data.transactionHash, date: Date.now() })
-		} catch (err) {
-			console.log(err)
+		} catch (error) {
+			if (axios.isAxiosError(error)) console.log(error.response?.data)
 			db.delete(interaction.user.id)
 			await interaction.editReply('An error occurred, please wait a few minutes and retry again.')
 		}
