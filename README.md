@@ -1,68 +1,76 @@
-
 # Starton Discord bot
 
-This bot allows you to airdrop tokens (ERC20) or NFTs (ERC721 / ERC1155) to your community directly from discord.
-People need to go to a specific channel and write `/airdrop <their address>` and they will have 1 chance on 10 to win.
+This bot allows you to airdrop tokens (ERC20) or NFTs (ERC721 / ERC1155) to your community directly from Discord.
+To attempt winning, users need to access a specific channel and enter `/airdrop <their address>`. They have 1 chance out of 10 to win.
 
-# Requirements
-## Discord
-You need to have a Discord Developper Account.
-You can apply here: [discord developer portal](https://discord.com/developers/)
-You can find more informations here: https://discordjs.guide/preparations/setting-up-a-bot-application.html
+## Prerequisites
+### Discord
+You need a Discord Developper Account.
+You can apply on the [Discord Developer portal](https://discord.com/developers/)
+[More information on how to set up a bot application](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
 
-When you have your credentials you need to set them in a `.env` file
+### Starton
+1. Go to [Starton.io](https://app.starton.io/).
+1. Create an account for free.
+1. In the `Developer` section, create an API key.
+1. In the `Wallet` section, create a Wallet.
+1. Deploy a new Smart Contract or import an existing one. Learn more in the [Smart contract documentation](https://docs.starton.io/docs/Smart-contract/understanding-smart-contracts).
 
-- `BOT_TOKEN=`
-- `GUILD_ID=`
 
+## Setting your environment file
 
-You also need to set the **channel id** related to your contest.<br>
-(You can leave it empty to allow any channel on your server)
+1. In a `.env` file:
+    1. Set your credentials.
 
-- `CHANNEL_ID=`
+        - `BOT_TOKEN=`
+        - `GUILD_ID=`
 
-## Starton Account
-You need a Starton account, which can be created [here](https://app.starton.io) for free
+    1. Set the **Channel id** from where the bot should execute.
 
-Then you can create an API key in the `Developer` section and a wallet in the `Wallet` section.
-You will need to add them to the `.env` file as well.
+        - `CHANNEL_ID=`
 
-- `STARTON_API_KEY=`
-- `STARTON_WALLET=`
+    1. Set the **API key** and the **Wallet** from Starton.
 
-## Deploy or import a smart contract on Starton
+        - `STARTON_API_KEY=`
+        - `STARTON_WALLET=`
 
-You will need deploy a new Smart Contract or import an existing one using [Starton web app](https://app.starton.io).
+    1. Set up the **network**, **address** and **network explorer transaction route** for your Smart Contract.
+       The network explorer transaction route is used so that your users can check the transaction on an explorer such as [etherscan.io](https://etherscan.io/)
 
-Once deployed you need to add the following in the `.env` file.
+        - `STARTON_SMART_CONTRACT_ADDRESS=`
+        - `STARTON_SMART_CONTRACT_NETWORK=`
+        - `NETWORK_EXPLORER_TX_ROUTE=`
 
-- `STARTON_SMART_CONTRACT_ADDRESS=`
-- `STARTON_SMART_CONTRACT_NETWORK=`
-- `NETWORK_EXPLORER_TX_ROUTE=` 
-
-# Start the bot
-## Install
+## Starting the bot
+### Installation
 
 ```bash
+# Clone the project
 git clone https://github.com/starton-io/discord-airdrop-bot
+
+# Navigate to project folder
 cd discord-airdrop-bot
-yarn install
+
+# Install dependencies
+yarn install #(or npm install)
 ```
 
-## Start in dev:
+### Starting in development
+
 ```bash
 yarn dev #(or npm run dev)
 ```
 
-## Start in production:
+### Starting in production
+
 ```bash
 yarn build && yarn start #(or npm run build && npm start)
 ```
 
 ## Extending the bot
-This bot uses the amazing https://github.com/oceanroleplay/discord.ts package.
+This bot uses the amazing [Discord package](https://github.com/oceanroleplay/discord.ts).
 
-You can find the full documentation on their website: https://discord-ts.js.org/
+You can find the full documentation on their [website](https://discord-ts.js.org/).
 
 ## Authors
 
